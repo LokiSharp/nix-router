@@ -26,16 +26,16 @@
     networks = {
       "10-management" = {
         matchConfig.Name = "mgnt0";
-        networkConfig = {
-          DHCP = "yes";
+        DHCP = "yes";
+        dhcpV4Config = {
+          UseRoutes = false; # 禁用从管理网络获取默认路由
+          UseGateway = false; # 禁用从管理网络获取默认网关
         };
       };
 
       "20-wan0" = {
         matchConfig.Name = "wan0";
-        networkConfig = {
-          DHCP = "yes";
-        };
+        DHCP = "yes";
       };
 
       "99-lan" = {
@@ -43,10 +43,6 @@
         networkConfig = {
           Bridge = "br-lan";
         };
-      };
-
-      "30-br-lan" = {
-        matchConfig.Name = "br-lan";
       };
     };
   };

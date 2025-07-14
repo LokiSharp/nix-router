@@ -3,7 +3,6 @@
   lib,
   inputs,
   nixos-modules,
-  home-modules ? [ ],
   myvars,
   system,
   targetHost ? null,
