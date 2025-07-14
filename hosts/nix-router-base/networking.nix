@@ -44,10 +44,6 @@
           Bridge = "br-lan";
         };
       };
-
-      "30-br-lan" = {
-        matchConfig.Name = "br-lan";
-      };
     };
   };
 }
