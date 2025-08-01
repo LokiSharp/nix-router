@@ -17,6 +17,8 @@
   boot.loader.efi.efiSysMountPoint = "/boot";
   boot.loader.systemd-boot.enable = true;
 
+  services.getty.autologinUser = "root";
+
   boot.growPartition = true;
   boot.kernelParams = [ "console=ttyS0" ];
   boot.initrd.availableKernelModules = [
