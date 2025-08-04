@@ -24,7 +24,7 @@ let # 生成单个路由器配置的函数
           "router-gns3"
         ]
         ++ (
-          if routerIdentifier == "Core" then
+          if routerIdentifier == "Core" || routerIdentifier == "Core-Backup" then
             [
               "gateway"
               "dhcp"
@@ -41,6 +41,9 @@ let # 生成单个路由器配置的函数
             # common
             "modules/nixos/server.nix"
             "modules/nixos/hardware-configuration/qemu-hardware-configuration.nix"
+
+            "modules/nixos/router-core"
+
             # host specific - 每个路由器有自己的配置文件
             "hosts/router-gns3/${hostNameLower}"
           ]
@@ -67,6 +70,7 @@ let # 生成单个路由器配置的函数
     4
     5
     "Core"
+    "Core-Backup"
   ];
 
   # 生成所有路由器配置

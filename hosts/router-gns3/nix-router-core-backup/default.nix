@@ -1,4 +1,5 @@
-# Nix-Router-Core-Backup 的特定配置 - 冗余网关路由器
+# Nix-Router-Core 的特定配置 - 主要网关路由器
+# 模块化配置，支持多冗余核心交换机部署
 {
   pkgs,
   lib,
@@ -18,7 +19,7 @@
     # 配置内外网接口和地址
     lan = {
       interface = "br-lan";
-      ip = "10.0.0.2";
+      ip = "10.0.0.3";
       prefixLength = 24;
     };
     wan = {
@@ -32,8 +33,8 @@
     domain = "router.lan"; # 自定义你的局域网域名
 
     pool = {
-      start = "10.0.0.100";
-      end = "10.0.0.149";
+      start = "10.0.0.150";
+      end = "10.0.0.200";
       gateway = "10.0.0.1"; # 通常这是你路由器的 LAN IP
     };
 
@@ -82,7 +83,7 @@
       interfaces = {
         # 在 br-lan 接口上运行 OSPF
         "br-lan" = {
-          cost = 10; # 主路由器成本低
+          cost = 100; # 备用路由器成本高
           helloInterval = 10;
           deadInterval = 40;
         };
@@ -96,7 +97,7 @@
 
   routerCore.ha = {
     enable = true;
-    role = "PRIMARY"; # <--- 关键：将这台机器声明为主节点
+    role = "BACKUP"; # <--- 关键：将这台机器声明为备用节点
     interface = "br-lan";
     virtualRouterId = 51;
     virtualIp = "10.0.0.1"; # 这是客户端使用的虚拟网关 IP
